@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">PDFReader</string>
+    <string name="btnOpenPDFDescription">Abre un fichero PDF</string>
+    <string name="imageViewDescription">Imagen de un archivo</string>
+    <string name="mainMessageDescription">Los ficheros PDF aparecerán aquí</string>
+</resources>
