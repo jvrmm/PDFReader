@@ -8,6 +8,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.github.barteksc.pdfviewer.PDFView
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
+import com.github.barteksc.pdfviewer.util.FitPolicy
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.reader.pdfreader.databinding.ActivityMainBinding
@@ -75,15 +77,14 @@ class MainActivity : AppCompatActivity() {
 
         uri?.let {
             binding.pdfView.fromUri(it)
-                .onRender { nbPages, pageWidth, pageHeight ->
-                    pdfView.fitToWidth()
-                }
                 .spacing(12)
                 .defaultPage(0)
-                .enableAnnotationRendering(false)
                 .enableDoubletap(true)
+                .scrollHandle(DefaultScrollHandle(this))
+                .pageFitPolicy(FitPolicy.BOTH)
+                .autoSpacing(true)
+                .enableSwipe(true)
                 .load()
-            binding.pdfView.fitToWidth()
             binding.pdfView.useBestQuality(true)
 
             imageView.isVisible = false

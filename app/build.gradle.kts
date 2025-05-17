@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
+    implementation("com.github.barteksc:android-pdf-viewer:3.1.0-beta.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

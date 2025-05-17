@@ -42,7 +42,7 @@
         android:layout_below="@+id/imageView"
         android:textSize="20sp"
         android:id="@+id/mainMessage"
-        android:text="@string/mainMessageDescription" />
+        android:text="@string/mainMessageDescription"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnOpenPDF"
@@ -50,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:contentDescription="@string/btnOpenPDFDescription"
         android:src="@drawable/outline_file_open_24" />
 
