@@ -1,5 +1,7 @@
 package com.reader.pdfreader
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -22,7 +24,6 @@ import com.reader.pdfreader.databinding.ActivityMainBinding
  * Coded by Javdev, 2025.
  * For educational purposes only.
  */
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pdfView: PDFView
     private lateinit var toolbar: MaterialToolbar
     private lateinit var btnOpenPDF: FloatingActionButton
+    private lateinit var myUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +43,42 @@ class MainActivity : AppCompatActivity() {
 
         initializeComponents()
 
+        openPDFWithApp()
+
         binding.btnOpenPDF.setOnClickListener{
             launchPDF.launch("application/pdf")
         }
+    }
+
+    //Open pdf only from the file explorer.
+    fun openPDFWithApp() {
+        val intent = this.intent
+
+        if (intent != null) {
+            val action = intent.action
+
+            if (Intent.ACTION_VIEW == action) {
+                myUri = intent.data!!
+                loadPDF(myUri)
+            }
+        }
+    }
+
+    //Load pdf when opening from the app or file explorer.
+    fun loadPDF(uri: Uri) {
+        binding.pdfView.fromUri(uri)
+            .defaultPage(0)
+            .enableDoubletap(true)
+            .scrollHandle(DefaultScrollHandle(this))
+            .autoSpacing(true)
+            .enableSwipe(true)
+            .load()
+        binding.pdfView.useBestQuality(true)
+
+        imageView.isVisible = false
+        textView.isVisible = false
+
+        switchingComponents()
     }
 
     fun initializeComponents() {
@@ -75,19 +110,7 @@ class MainActivity : AppCompatActivity() {
     ) { uri ->
 
         uri?.let {
-            binding.pdfView.fromUri(it)
-                .defaultPage(0)
-                .enableDoubletap(true)
-                .scrollHandle(DefaultScrollHandle(this))
-                .autoSpacing(true)
-                .enableSwipe(true)
-                .load()
-            binding.pdfView.useBestQuality(true)
-
-            imageView.isVisible = false
-            textView.isVisible = false
-
-            switchingComponents()
+            loadPDF(uri)
         }
     }
 }
